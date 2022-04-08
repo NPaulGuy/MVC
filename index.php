@@ -1,35 +1,39 @@
 <?php
-	namespace Core;
+/**
+ * Сделайте контроллер TestController с действиями act1, act2 и act3. 
+ * Сделайте три роута, задающие адреса, по которым можно будет обратиться к этим действиям. 
+ * Проверьте работу созданного вами кода, по очереди обратившись через адресную строку к каждому из действий.
+ */
+namespace Core;
+error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/connection.php';
+
+spl_autoload_register(function($class) {
+	preg_match('#(.+)\\\\(.+?)$#', $class, $match);
 	
-	error_reporting(E_ALL);
-	ini_set('display_errors', 'on');
+	$nameSpace = str_replace('\\', DIRECTORY_SEPARATOR, strtolower($match[1]));
+	$className = $match[2];
 	
-	require_once $_SERVER['DOCUMENT_ROOT'] . '/project/config/connection.php';
+	$path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $nameSpace . DIRECTORY_SEPARATOR . $className . '.php';
 	
-	spl_autoload_register(function($class) {
-		preg_match('#(.+)\\\\(.+?)$#', $class, $match);
+	if (file_exists($path)) {
+		require_once $path;
 		
-		$nameSpace = str_replace('\\', DIRECTORY_SEPARATOR, strtolower($match[1]));
-		$className = $match[2];
-		
-		$path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $nameSpace . DIRECTORY_SEPARATOR . $className . '.php';
-		
-		if (file_exists($path)) {
-			require_once $path;
-			
-			if (class_exists($class, false)) {
-				return true;
-			} else {
-				throw new \Exception("Класс $class не найден в файле $path. Проверьте правильность написания имени класса внутри указанного файла.");
-			}
+		if (class_exists($class, false)) {
+			return true;
 		} else {
-			throw new \Exception("Для класса $class не найден файл $path. Проверьте наличие файла по указанному пути. Убедитесь, что пространство имен вашего класса совпадает с тем, которое пытается найти фреймворк для данного класса. Например, вы создаете класса модели, но забыли заюзать ее через use. В этом случае вы пытаетесь вызвать класс модели в пространстве имен контроллера, а такого файла нет.");
+			throw new \Exception("Класс $class не найден в файле $path. Проверьте правильность написания имени класса внутри указанного файла.");
 		}
-	});
-	
-	$routes = require $_SERVER['DOCUMENT_ROOT'] . '/project/config/routes.php';
-	
-	$track = ( new Router )      -> getTrack($routes, $_SERVER['REQUEST_URI']);
-	$page  = ( new Dispatcher )  -> getPage($track);
-	
-	echo (new View) -> render($page);
+	} else {
+		throw new \Exception("Для класса $class не найден файл $path. Проверьте наличие файла по указанному пути. Убедитесь, что пространство имен вашего класса совпадает с тем, которое пытается найти фреймворк для данного класса. Например, вы создаете класса модели, но забыли заюзать ее через use. В этом случае вы пытаетесь вызвать класс модели в пространстве имен контроллера, а такого файла нет.");
+	}
+});
+
+$routes = require $_SERVER['DOCUMENT_ROOT'] . '/project/config/routes.php';
+
+$track = ( new Router )      -> getTrack($routes, $_SERVER['REQUEST_URI']);
+$page  = ( new Dispatcher )  -> getPage($track);
+
+echo (new View) -> render($page);
