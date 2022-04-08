@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+    homework:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes: 
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - .:/MVC
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - .:/MVC
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'root'
+            MYSQL_DATABASE: 'userDB'
+        volumes:
+            - mysqldata:/var/lib/mysql
+        ports:
+            - 3306:3306
+volumes:
+    mysqldata: {}
