@@ -3,6 +3,7 @@
 	
 	return [
 		new Route('/hello/', 'hello', 'index'),
+		new Route('/page/:n/', 'page', 'show'),
 		new Route('/product/:n/', 'product', 'show'),
 		new Route('/products/all/', 'product', 'all'),
 		new Route('/page/act/', 'page', 'act'),
