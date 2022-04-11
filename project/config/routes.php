@@ -8,5 +8,8 @@
 		new Route('/user/:id/:key/', 'user', 'info'),
 		new Route('/user/all', 'user', 'all'),
 		new Route('/user/first/:n', 'user', 'first'),
+		new Route('/act1/', 'test', 'act1'),
+		new Route('/act2/', 'test', 'act2'),
+		new Route('/act3/', 'test', 'act3'),
 	];
 	
