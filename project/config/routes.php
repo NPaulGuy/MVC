@@ -6,6 +6,7 @@
 		new Route('/product/:n/', 'product', 'show'),
 		new Route('/products/all/', 'product', 'all'),
 		new Route('/page/act/', 'page', 'act'),
+		new Route('/page/test/', 'page', 'test'),
 		new Route('/page/:n/', 'page', 'show'),
 		new Route('/nums/:n1/:n2/:n3/', 'num', 'sum'),
 		new Route('/user/:id/', 'user', 'show'),

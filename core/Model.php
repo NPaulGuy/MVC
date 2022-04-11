@@ -4,11 +4,14 @@
 	class Model
 	{
 		private static $link;
-		
+		const DB_HOST = 'localhost';
+		const DB_USER = 'root';
+		const DB_PASS = 'root';
+		const DB_NAME = 'homework';
 		public function __construct()
 		{
 			if (!self::$link) {
-				self::$link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+				self::$link = mysqli_connect(self::DB_HOST, self::DB_USER, self::DB_PASS, self::DB_NAME);
 				mysqli_query(self::$link, "SET NAMES 'utf8'");
 			}
 		}
