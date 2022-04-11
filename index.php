@@ -8,7 +8,6 @@
  * В контроллере Product сделайте действие all, которое будет выводить список всех продуктов в виде HTML таблицы. Пусть это действие обрабатывает адрес /products/all/.
  */
 namespace Core;
-
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
