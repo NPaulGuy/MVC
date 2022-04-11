@@ -2,6 +2,8 @@
 	use \Core\Route;
 	
 	return [
-		new Route('/hello/', 'hello', 'index'), // роут для приветственной страницы, можно удалить
+		new Route('/hello/', 'hello', 'index'),
+		new Route('/product/:n/', 'product', 'show'),
+		new Route('/products/all/', 'product', 'all'),
 	];
 	
