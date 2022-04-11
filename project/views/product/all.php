@@ -1,7 +1,9 @@
-<ul>
 <?php
 	foreach ($products as $product) {
-		echo "<li>{$product['name']}</li>";
+		echo "<ul>";
+		foreach ($product as $key => $field) {
+			echo "<li>$key - $field</li>";
+		}
+		echo "</ul>";
 	}
 ?>
-</ul>
