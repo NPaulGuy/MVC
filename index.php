@@ -5,7 +5,6 @@
  * Передайте массив, содержащий header и список юзеров. Отобразите их в виде списка.
  */
 namespace Core;
-
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
